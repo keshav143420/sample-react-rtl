@@ -9,6 +9,6 @@ const App: React.FC = () => {
       <HiddenMessage>Hello</HiddenMessage>
     </div>
   );
-}
+};
 
 export default App;
