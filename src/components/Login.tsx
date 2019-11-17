@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { IUser } from './models/IUser';
+
 
 const Login: React.FC = () => {
   const [error, setError] = useState({ message: '' });
@@ -9,15 +11,17 @@ const Login: React.FC = () => {
     event.preventDefault();
     const { usernameInput, passwordInput } = event.target.elements;
 
+    const user: IUser = {
+      password: passwordInput.value,
+      username: usernameInput.value,
+    };
+
     setLoading(true);
     setResolved(false);
     setError({ message: '' });
 
     const parameters: RequestInit = {
-      body: JSON.stringify({
-        password: passwordInput.value,
-        username: usernameInput.value,
-      }),
+      body: JSON.stringify(user),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -27,11 +31,11 @@ const Login: React.FC = () => {
     fetch('http://localhost:3002/api/login', parameters)
       .then((r) => r.json()) // Promise.reject({ 'message': 'i dont like it' }))
       .then(
-        (user) => {
+        (response) => {
           setLoading(false);
           setResolved(true);
           setError({ message: '' });
-          localStorage.setItem('token', user.token);
+          localStorage.setItem('token', response.token);
         },
         (err) => {
           setLoading(false);
