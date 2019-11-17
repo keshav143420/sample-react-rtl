@@ -1,6 +1,5 @@
 import React from 'react';
 
-console.log('test');
 const HiddenMessage: React.FC = ({children}) => {
   const [showMessage, setShowMessage] = React.useState(false);
   return (
