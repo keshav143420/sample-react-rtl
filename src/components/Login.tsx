@@ -1,35 +1,17 @@
 import React, { useState } from 'react';
 
-function Login() {
-  // const [state, setState] = React.useReducer((s, a) => ({ ...s, ...a }), {
-  //   error: null,
-  //   loading: false,
-  //   resolved: false,
-  // });
-
-  const [error, setError] = useState({message: ''});
+const Login: React.FC = () => {
+  const [error, setError] = useState({ message: '' });
   const [loading, setLoading] = useState(false);
   const [resolved, setResolved] = useState(false);
-
 
   function handleSubmit(event: any) {
     event.preventDefault();
     const { usernameInput, passwordInput } = event.target.elements;
-    // console.log(`usernameInput=${usernameInput.value} and passwordInput=${passwordInput.value}`);
-    // setState({ loading: true, resolved: false, error: null });
+
     setLoading(true);
     setResolved(false);
-    setError({message: ''});
-
-    // const parameters :RequestInit = {
-    //   body: 'Hello',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Access-Control-Allow-Origin': '*'
-    //   },
-    //   method: 'POST',
-    //   mode: 'no-cors'
-    // };
+    setError({ message: '' });
 
     const parameters: RequestInit = {
       body: JSON.stringify({
@@ -46,19 +28,16 @@ function Login() {
       .then((r) => r.json()) // Promise.reject({ 'message': 'i dont like it' }))
       .then(
         (user) => {
-          // setState({ loading: false, resolved: true, error: null });
           setLoading(false);
           setResolved(true);
-          setError({message: ''});
-          window.localStorage.setItem('token', user.token);
+          setError({ message: '' });
+          localStorage.setItem('token', user.token);
         },
         (err) => {
-          // console.log('err ' + err);
-          // setState({ loading: false, resolved: false, error: err['message'] });
           setLoading(false);
           setResolved(false);
-          setError({message: err.message});
-          window.localStorage.removeItem('token');
+          setError({ message: err.message });
+          localStorage.removeItem('token');
         },
       );
   }
@@ -81,11 +60,6 @@ function Login() {
       ) : null}
     </div>
   );
-}
+};
 
 export default Login;
-
-
-// ,
-//           'X-Requested-With': 'XMLHttpRequest',
-//           'Access-Control-Allow-Origin': '*'
