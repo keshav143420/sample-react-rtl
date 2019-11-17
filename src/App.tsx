@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import HiddenMessage from './components/HiddenMessage';
 import Login from './components/Login';
 
